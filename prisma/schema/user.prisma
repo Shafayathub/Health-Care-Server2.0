@@ -1,0 +1,13 @@
+model User {
+  id                 String     @id @default(cuid())
+  email              String     @unique
+  password           String
+  role               Role
+  status             UserStatus @default(ACTIVE)
+  needPasswordChange Boolean    @default(true)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  @@schema("auth")
+}
+

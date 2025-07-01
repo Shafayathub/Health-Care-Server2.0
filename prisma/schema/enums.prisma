@@ -1,0 +1,15 @@
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  DOCTOR
+  PATIENT
+
+  @@schema("auth")
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+
+  @@schema("auth")
+}
