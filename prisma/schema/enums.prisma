@@ -1,3 +1,4 @@
+
 enum Role {
   SUPER_ADMIN
   ADMIN
@@ -12,4 +13,47 @@ enum UserStatus {
   BLOCKED
 
   @@schema("auth")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+
+  @@schema("public")
+}
+
+enum MaritalStatus {
+  MARRIED
+  UNMARRIED
+
+  @@schema("public")
+}
+
+enum BloodGroup {
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+
+  @@schema("public")
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+
+  @@schema("public")
+}
+
+enum PaymentStatus {
+  PAID
+  UNPAID
+
+  @@schema("public")
 }

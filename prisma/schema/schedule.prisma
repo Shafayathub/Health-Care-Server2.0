@@ -1,0 +1,43 @@
+model Specialty {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+
+  doctors DoctorSpecialty[]
+
+  @@schema("public")
+}
+
+model DoctorSpecialty {
+  doctorId    String
+  specialtyId String
+
+  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+
+  @@id([doctorId, specialtyId])
+  @@schema("public")
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  isDeleted Boolean  @default(false)
+
+  doctors DoctorSchedule[]
+
+  @@schema("public")
+}
+
+model DoctorSchedule {
+  doctorId   String
+  scheduleId String
+  
+  doctor   Doctor   @relation(fields: [doctorId], references: [id])
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+
+  @@id([doctorId, scheduleId])
+  @@schema("public")
+}

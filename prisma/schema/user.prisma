@@ -8,6 +8,82 @@ model User {
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
 
+  admin   Admin?
+  doctor  Doctor?
+  patient Patient?
+
   @@schema("auth")
 }
 
+model Admin {
+  id            String   @id @default(cuid())
+  name          String
+  profilePhoto  String?
+  contactNumber String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@schema("auth")
+}
+
+model Doctor {
+  id                  String   @id @default(cuid())
+  name                String
+  profilePhoto        String?
+  contactNumber       String?
+  address             String?
+  registrationNumber  String   @unique
+  appointmentFee      Float
+  qualification       String
+  currentWorkingPlace String?
+  designation         String?
+  isDeleted           Boolean  @default(false)
+  averageRating       Float    @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  userId        String           @unique
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  specialties   DoctorSpecialty[]
+  schedules     DoctorSchedule[]
+  slots         AppointmentSlot[]
+  reviews       Review[]
+  prescriptions Prescription[]
+  appointments  Appointment[]
+
+  @@schema("auth")
+}
+
+model Patient {
+  id                         String        @id @default(cuid())
+  name                       String
+  occupation                 String?
+  dateOfBirth                DateTime?
+  gender                     Gender?
+  maritalStatus              MaritalStatus?
+  bloodGroup                 BloodGroup?
+  hasAllergies               Boolean?
+  hasDiabetes                Boolean?
+  height                     String?
+  weight                     String?
+  dietaryPreferences         String?
+  pregnancyStatus            String?
+  immunizationStatus         String?
+  hasPastSurgeries           Boolean?
+  recentInjury               Boolean?
+  rawHistoryText             String?
+  structuredMedicalHistory   Json?
+  createdAt                  DateTime      @default(now())
+  updatedAt                  DateTime      @updatedAt
+
+  userId         String          @unique
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments   Appointment[]
+  reviews        Review[]
+  medicalReports MedicalReport[]
+
+  @@schema("auth")
+}
