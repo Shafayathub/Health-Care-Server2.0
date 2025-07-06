@@ -1,32 +1,24 @@
 
-enum Role {
+enum UserRole {
   SUPER_ADMIN
   ADMIN
   DOCTOR
   PATIENT
-
-  @@schema("auth")
 }
 
 enum UserStatus {
   ACTIVE
   BLOCKED
-
-  @@schema("auth")
 }
 
 enum Gender {
   MALE
   FEMALE
-
-  @@schema("public")
 }
 
 enum MaritalStatus {
   MARRIED
   UNMARRIED
-
-  @@schema("public")
 }
 
 enum BloodGroup {
@@ -38,8 +30,6 @@ enum BloodGroup {
   O_NEGATIVE
   AB_POSITIVE
   AB_NEGATIVE
-
-  @@schema("public")
 }
 
 enum AppointmentStatus {
@@ -47,13 +37,9 @@ enum AppointmentStatus {
   IN_PROGRESS
   COMPLETED
   CANCELED
-
-  @@schema("public")
 }
 
 enum PaymentStatus {
   PAID
   UNPAID
-
-  @@schema("public")
 }
