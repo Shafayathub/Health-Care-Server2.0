@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../../config/prisma";
+import prisma from "../../utility/prisma";
 import { adminSearchableFields } from "./admin.constant";
 import { paginationHelper } from "../../utility/PaginationHelper";
 

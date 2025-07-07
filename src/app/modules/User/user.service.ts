@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { UserRole } from '@prisma/client';
-import prisma from '../../config/prisma';
+import prisma from '../../utility/prisma';
 import config from '../../config';
 
 const createAdminIntoDB = async (payload: any) => {
