@@ -1,33 +1,30 @@
 import bcrypt from 'bcryptjs';
 import { UserRole } from '@prisma/client';
 import prisma from '../../config/prisma';
+import config from '../../config';
 
 const createAdminIntoDB = async (payload: any) => {
-    const { name, email, password, contactNumber } = payload;
-
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword: string = await bcrypt.hash(payload.password, Number(config.saltRound));
+    const userData = {
+        email: payload.admin.email,
+        password: hashedPassword,
+        role: UserRole.ADMIN
+    }
 
     // This transaction ensures both the User and Admin are created, or neither is.
     const result = await prisma.$transaction(async (transactionClient) => {
         const newUser = await transactionClient.user.create({
-            data: {
-                email,
-                password: hashedPassword,
-                role: UserRole.ADMIN // 2. Assign the specific role like this
-            }
+            data: userData
         });
 
         const newAdmin = await transactionClient.admin.create({
-            data: {
-                name,
-                email,
-                contactNumber,
-            }
+            data: payload.admin
         });
 
         // Omit password from the returned object
-        const { password, ...userWithoutPassword } = newUser;
-        return userWithoutPassword;
+        // const { password, ...userWithoutPassword } = newUser;
+        // return userWithoutPassword;
+        return newAdmin;
     });
 
     if (!result) {

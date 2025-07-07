@@ -11,7 +11,7 @@ const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error) {
-    next(error);
+    console.log(error);
   }
 };
 
