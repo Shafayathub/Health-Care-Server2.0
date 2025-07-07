@@ -10,8 +10,12 @@ const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
       message: "Admin created successfully",
       data: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error:any) {
+    res.status(status.BAD_REQUEST).json({
+      success: false,
+      message: error?.name || "Something Went Wrong",
+      error: error,
+    }) 
   }
 };
 

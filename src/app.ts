@@ -28,5 +28,11 @@ app.get('/api/v1/health', (req: Request, res: Response) => {
 // Use the main router for all versioned API paths
 app.use('/api/v1', mainRouter);
 
+// error handling throgh NextFunction
+// app.use(globalErrorHandler);
+
+// not found route
+// app.use(notFound);
+
 
 export default app;
