@@ -3,13 +3,17 @@ import status from "http-status";
 import { adminService } from "./admin.service";
 import pick from "../../utility/Pick";
 import { adminFilterableFields } from "./admin.constant";
+import sendResponse from "../../utility/SendResponse";
+
+
 
 const getAllAdmin = async (req: Request, res: Response) => {
   try {
     const filters = pick(req.query, adminFilterableFields);
     const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
     const result = await adminService.getAllAdmin(filters, options);
-    res.status(status.OK).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: "Admin fetched successfully",
       meta: result.meta,

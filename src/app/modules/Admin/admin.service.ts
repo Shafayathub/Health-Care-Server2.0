@@ -3,9 +3,8 @@ import prisma from "../../utility/prisma";
 import { adminSearchableFields } from "./admin.constant";
 import { paginationHelper } from "../../utility/PaginationHelper";
 
-
-const getAllAdmin = async (params: any, options:any) => {
-  const {searchTerm, ...filterData} = params;
+const getAllAdmin = async (params: any, options: any) => {
+  const { searchTerm, ...filterData } = params;
   const paginationOptions = paginationHelper.calculatePagination(options);
   const andConditions: Prisma.AdminWhereInput[] = [];
   if (searchTerm) {
@@ -18,18 +17,18 @@ const getAllAdmin = async (params: any, options:any) => {
       })),
     });
   }
-  if(Object.keys(filterData).length > 0){
+  if (Object.keys(filterData).length > 0) {
     andConditions.push({
       AND: Object.keys(filterData).map((key) => ({
         [key]: {
           equals: filterData[key],
-        }
-      }))
-    })
+        },
+      })),
+    });
   }
 
   andConditions.push({
-    isDeleted: false
+    isDeleted: false,
   });
 
   const whereConditions: Prisma.AdminWhereInput = { AND: andConditions };
@@ -39,35 +38,33 @@ const getAllAdmin = async (params: any, options:any) => {
   });
   const total = await prisma.admin.count({
     where: whereConditions,
-  })
+  });
   return {
     meta: {
-      page: Number(options.page),
-      limit: Number(options.limit),
-      total
+      page: Number(paginationOptions.skip + 1),
+      limit: Number(paginationOptions.take),
+      total,
     },
     data: result,
   };
 };
 
-
-const getSingleAdmin = async (id: string) =>{
+const getSingleAdmin = async (id: string) => {
   const result = await prisma.admin.findUniqueOrThrow({
     where: {
       id,
-      isDeleted: false
+      isDeleted: false,
     },
-  })
+  });
   return result;
-}
+};
 
 const updateAdmin = async (id: string, payload: Partial<Admin>) => {
-
   await prisma.admin.findUniqueOrThrow({
     where: {
       id,
-      isDeleted: false
-    }
+      isDeleted: false,
+    },
   });
 
   const result = await prisma.admin.update({
@@ -83,22 +80,22 @@ const deleteAdmin = async (id: string) => {
   await prisma.admin.findUniqueOrThrow({
     where: {
       id,
-      isDeleted: false
-    }
+      isDeleted: false,
+    },
   });
   const result = await prisma.$transaction(async (transactionClient) => {
     const deletedAdmin = await transactionClient.admin.delete({
       where: {
         id,
       },
-    })
+    });
     await transactionClient.user.delete({
       where: {
-        email: deletedAdmin.email
+        email: deletedAdmin.email,
       },
-    })
+    });
     return deletedAdmin;
-  })
+  });
   return result;
 };
 
@@ -110,25 +107,25 @@ const softDeleteAdmin = async (id: string) => {
       },
       data: {
         isDeleted: true,
-      }
-    })
+      },
+    });
     await transactionClient.user.update({
       where: {
         email: deletedAdmin.email,
       },
       data: {
-        status: UserStatus.DELETED
-      }
-    })
+        status: UserStatus.DELETED,
+      },
+    });
     return deletedAdmin;
-  })
+  });
   return result;
-}
+};
 
 export const adminService = {
   getAllAdmin,
   getSingleAdmin,
   updateAdmin,
   deleteAdmin,
-  softDeleteAdmin
+  softDeleteAdmin,
 };
