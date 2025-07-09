@@ -6,7 +6,6 @@ import { adminFilterableFields } from "./admin.constant";
 import sendResponse from "../../utility/SendResponse";
 
 
-
 const getAllAdmin = async (req: Request, res: Response) => {
   try {
     const filters = pick(req.query, adminFilterableFields);
@@ -32,7 +31,8 @@ const getSingleAdmin = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await adminService.getSingleAdmin(id);
-    res.status(status.OK).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: "Admin fetched successfully",
       data: result,
@@ -51,7 +51,8 @@ const updateAdmin = async (req: Request, res: Response) => {
     const { id } = req.params;
     const payload = req.body;
     const result = await adminService.updateAdmin(id, payload);
-    res.status(status.OK).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: "Admin updated successfully",
       data: result,
@@ -69,7 +70,8 @@ const deleteAdmin = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await adminService.deleteAdmin(id);
-    res.status(status.OK).json({
+    sendResponse(res, {
+      statusCode: status.NO_CONTENT,
       success: true,
       message: "Admin deleted successfully",
       data: result,
@@ -87,7 +89,8 @@ const softDeleteAdmin = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await adminService.softDeleteAdmin(id);
-    res.status(status.OK).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: "Admin soft deleted successfully",
       data: result,
