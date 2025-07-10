@@ -1,17 +1,4 @@
-export interface IPaginationOptions {
-  page: number;
-  limit: number;
-  sortBy: string;
-  sortOrder: 'asc' | 'desc';
-}
-
-interface IPaginationResult {
-  skip: number
-  take: number
-  orderBy:{
-    [key: string]: 'asc' | 'desc'
-  }
-}
+import { IPaginationOptions, IPaginationResult } from "../interfaces/pagination";
 
 const calculatePagination = (options: IPaginationOptions): IPaginationResult => {
 
