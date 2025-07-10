@@ -11,11 +11,7 @@ const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
       data: result,
     });
   } catch (error:any) {
-    res.status(status.BAD_REQUEST).json({
-      success: false,
-      message: error?.name || "Something Went Wrong",
-      error: error,
-    }) 
+    next(error); 
   }
 };
 

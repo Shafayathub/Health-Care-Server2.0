@@ -2,6 +2,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import mainRouter from './app/routes';
+import globalErrorHandler from './app/middlewares/GlobalErrorHandler';
 
 const app: Application = express();
 
@@ -29,7 +30,7 @@ app.get('/api/v1/health', (req: Request, res: Response) => {
 app.use('/api/v1', mainRouter);
 
 // error handling throgh NextFunction
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 // not found route
 // app.use(notFound);
