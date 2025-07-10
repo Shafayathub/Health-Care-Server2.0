@@ -1,19 +1,19 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { userService } from "./user.service";
 import status from "http-status";
+import sendResponse from "../../utility/SendResponse";
+import catchAsync from "../../utility/CatchAsync";
 
-const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
-  try {
+
+const createAdmin = catchAsync(async (req: Request, res: Response) => {
     const result = await userService.createAdminIntoDB(req.body);
-    res.status(status.CREATED).json({
+    sendResponse(res, {
+      statusCode: status.OK,
       success: true,
       message: "Admin created successfully",
       data: result,
-    });
-  } catch (error:any) {
-    next(error); 
-  }
-};
+    })
+})
 
 export const userController = {
   createAdmin,
