@@ -1,43 +1,49 @@
 import { Server } from 'http';
 import app from './app';
 import config from './app/config';
+import { dbSeeder } from './app/utility/dbSeeder';
 
 async function bootstrap() {
     // This variable will hold our server instance
     let server: Server;
 
-    // Start the server
-    server = app.listen(config.port, () => {
-        console.log(`🚀 Server is running on http://localhost:${config.port}`);
-    });
+    try {
+        // Seed super admin
+        await dbSeeder.seedSuperAdmin();
 
+        // Start the server
+        server = app.listen(config.port, () => {
+            console.log(`🚀 Server is running on http://localhost:${config.port}`);
+        });
 
-    // Function to gracefully shut down the server
-    const exitHandler = () => {
-        if (server) {
-            server.close(() => {
-                console.log('Server closed gracefully.');
-                process.exit(1); // Exit with a failure code
-            });
-        } else {
-            process.exit(1);
-        }
-    };
+        // Function to gracefully shut down the server
+        const exitHandler = () => {
+            if (server) {
+                server.close(() => {
+                    console.log('Server closed gracefully.');
+                    process.exit(1); // Exit with a failure code
+                });
+            } else {
+                process.exit(1);
+            }
+        };
 
-    // --- Listen for Unhandled Errors ---
-
-    // For asynchronous promise rejections that are not caught
-    process.on('unhandledRejection', (error) => {
-        console.error('💥 Unhandled Rejection! Shutting down...', error);
-        exitHandler();
-    });
-
-    // For synchronous errors that are not caught
-    process.on('uncaughtException', (error) => {
-        console.error('💥 Uncaught Exception! Shutting down...', error);
-        exitHandler();
-    });
+        // Handle unhandled promise rejections
+        process.on('unhandledRejection', (error) => {
+            console.log('Unhandled Rejection is detected, we are closing our server...');
+            if (server) {
+                server.close(() => {
+                    console.log(error);
+                    process.exit(1);
+                });
+            } else {
+                process.exit(1);
+            }
+        });
+    } catch (error) {
+        console.error('Error during server startup:', error);
+        process.exit(1);
+    }
 }
 
-// Start the server by calling our bootstrap function
 bootstrap();

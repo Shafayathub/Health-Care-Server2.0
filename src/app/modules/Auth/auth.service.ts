@@ -24,16 +24,16 @@ const loginUser = async (payload: {
         email: userData.email,
         role: userData.role
     },
-        config.accessTokenSecret as string,
-        config.accessTokenExpiresIn as string
+        config.jwt.accessTokenSecret as string,
+        config.jwt.accessTokenExpiresIn as string
     );
 
     const refreshToken = jwtHelpers.generateToken({
         email: userData.email,
         role: userData.role
     },
-        config.refreshTokenSecret as string,
-        config.refreshTokenExpiresIn as string
+        config.jwt.refreshTokenSecret as string,
+        config.jwt.refreshTokenExpiresIn as string
     );
 
     return {
@@ -64,8 +64,8 @@ const refreshToken = async (token: string) => {
         email: userData.email,
         role: userData.role
     },
-        config.accessTokenSecret as string,
-        config.accessTokenExpiresIn as string
+        config.jwt.accessTokenSecret as string,
+        config.jwt.accessTokenExpiresIn as string
     );
 
     return {
