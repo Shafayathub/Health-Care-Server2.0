@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Secret } from "jsonwebtoken";
+import { JwtPayload, Secret } from "jsonwebtoken";
 import httpStatus from "http-status";
 import ApiError from "../error/ApiError";
 import { jwtHelpers } from "../utility/jwtHelper";
@@ -7,7 +7,7 @@ import config from "../config";
 
 const auth = (...roles: string[]) => {
   return async (
-    req: Request & { user?: any },
+    req: Request & { user?: JwtPayload },
     res: Response,
     next: NextFunction
   ) => {
