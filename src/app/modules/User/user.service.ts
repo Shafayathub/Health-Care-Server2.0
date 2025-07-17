@@ -9,7 +9,7 @@ const createAdminIntoDB = async (req: any) => {
     const file = req.file;
     if(file){
         const uploadResult = await fileUploader.uploadFileToCloudinary(file);
-        payload.admin.profilePhoto = (uploadResult as any).secure_url;
+        payload.admin.profilePhoto = uploadResult.secure_url;
     }
     const hashedPassword: string = await bcrypt.hash(payload.password, Number(config.saltRound));
     const userData = {
@@ -40,21 +40,6 @@ const createAdminIntoDB = async (req: any) => {
     return result;
 };
 
-const saveUploadedFileUrl = async (filename: string, secureUrl: string) => {
-    // Find the admin by filename (assuming filename is unique and matches an admin's email or id)
-    // Here, let's assume filename is the admin's email for simplicity
-    const admin = await prisma.admin.findUnique({ where: { email: filename } });
-    if (!admin) {
-        throw new Error("Admin not found for the given filename (email)");
-    }
-    const updatedAdmin = await prisma.admin.update({
-        where: { email: filename },
-        data: { profilePhoto: secureUrl }
-    });
-    return updatedAdmin;
-};
-
 export const userService = {
     createAdminIntoDB,
-    saveUploadedFileUrl
 };
