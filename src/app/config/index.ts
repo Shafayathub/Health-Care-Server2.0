@@ -22,6 +22,11 @@ const config = {
   },
   reset_pass_link: process.env.RESET_PASS_LINK,
   reset_pass_secret: process.env.RESET_PASS_SECRET,
+  cloudinary: {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  },
 };
 
 export default config;

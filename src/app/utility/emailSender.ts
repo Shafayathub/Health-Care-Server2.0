@@ -36,8 +36,6 @@ const emailSender = async (
         </div>
    `, // html body
     });
-
-    //console.log("Message sent: %s", info.messageId);
 }
 
 export default emailSender;
