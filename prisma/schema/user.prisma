@@ -7,7 +7,8 @@ model User {
   needPasswordChange Boolean    @default(true)
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
-  Admin              Admin?  
+  admin              Admin?
+  doctor             Doctor?
 }
 
 model Admin {
@@ -23,3 +24,24 @@ model Admin {
   user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
 }
 
+model Doctor {
+  id                  String   @id @default(uuid())
+  name                String
+  profilePhoto        String?
+  contactNumber       String
+  address             String?
+  registrationNumber  String   @unique
+  experience          Int?
+  gender              Gender
+  appointmentFee      Float
+  qualification       String
+  currentWorkingPlace String
+  designation         String
+  isDeleted           Boolean  @default(false)
+  averageRating       Float    @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  email String @unique
+  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+}

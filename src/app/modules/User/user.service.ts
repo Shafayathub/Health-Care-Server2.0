@@ -40,6 +40,40 @@ const createAdminIntoDB = async (req: any) => {
     return result;
 };
 
+const createDoctorIntoDB = async (req: any) => {
+    const payload = JSON.parse(req.body.data);
+    const file = req.file;
+    if(file){
+        const uploadResult = await fileUploader.uploadFileToCloudinary(file);
+        payload.doctor.profilePhoto = uploadResult.secure_url;
+    }
+    const hashedPassword: string = await bcrypt.hash(payload.password, Number(config.saltRound));
+    const userData = {
+        email: payload.doctor.email,
+        password: hashedPassword,
+        role: UserRole.DOCTOR
+    }
+    // This transaction ensures both the User and Admin are created, or neither is.
+    const result = await prisma.$transaction(async (transactionClient) => {
+        const newUser = await transactionClient.user.create({
+            data: userData
+        });
+        const newDoctor = await transactionClient.doctor.create({
+            data: payload.doctor
+        })
+        return newDoctor;
+    });
+
+    if (!result) {
+        throw new Error("Failed to create doctor");
+    }
+
+    return result;
+};
+
+
+
 export const userService = {
     createAdminIntoDB,
+    createDoctorIntoDB,
 };
