@@ -9,6 +9,7 @@ model User {
   updatedAt          DateTime   @updatedAt
   admin              Admin?
   doctor             Doctor?
+  Patient            Patient?
 }
 
 model Admin {
@@ -41,6 +42,32 @@ model Doctor {
   averageRating       Float    @default(0)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+
+  email String @unique
+  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+}
+
+model Patient {
+  id                       String         @id @default(uuid())
+  name                     String
+  occupation               String?
+  dateOfBirth              DateTime?
+  gender                   Gender?
+  maritalStatus            MaritalStatus?
+  bloodGroup               BloodGroup?
+  hasAllergies             Boolean?
+  hasDiabetes              Boolean?
+  height                   String?
+  weight                   String?
+  dietaryPreferences       String?
+  pregnancyStatus          String?
+  immunizationStatus       String?
+  hasPastSurgeries         Boolean?
+  recentInjury             Boolean?
+  rawHistoryText           String?
+  structuredMedicalHistory Json?
+  createdAt                DateTime       @default(now())
+  updatedAt                DateTime       @updatedAt
 
   email String @unique
   user  User   @relation(fields: [email], references: [email], onDelete: Cascade)

@@ -60,8 +60,74 @@ const updateStatusZodSchema = z.object({
     })
 })
 
+const createPatientZodSchema = z.object({
+    password: z.string({
+        error: "Password is required"
+    }),
+    patient: z.object({
+        name: z.string({
+            error: "Name is required!"
+        }),
+        email: z.string({
+            error: "Email is required!"
+        }),
+        contactNumber: z.string({
+            error: "Contact Number is required!"
+        }),
+        address: z.string().optional(),
+        gender: z.enum([Gender.MALE, Gender.FEMALE]),
+        age: z.number({
+            error: "Age is required"
+        }),
+        bloodGroup: z.enum([
+            "A+",
+            "A-",
+            "B+",
+            "B-",
+            "AB+",
+            "AB-",
+            "O+",
+            "O-"
+        ]),
+        height: z.number({
+            error: "Height is required"
+        }),
+        weight: z.number({
+            error: "Weight is required"
+        }),
+        guardian: z.object({
+            name: z.string({
+                error: "Guardian name is required!"
+            }),
+            email: z.string({
+                error: "Guardian email is required!"
+            }),
+            contactNumber: z.string({
+                error: "Guardian contact number is required!"
+            }),
+            address: z.string().optional(),
+            gender: z.enum([Gender.MALE, Gender.FEMALE]),
+            age: z.number({
+                error: "Guardian age is required"
+            }),
+            bloodGroup: z.enum([
+                "A+",
+                "A-",
+                "B+",
+                "B-",
+                "AB+",
+                "AB-",
+                "O+",
+                "O-"
+            ]),
+        }),
+    })
+})
+
+
 export const userValidation = {
     createAdminZodSchema,
     createDoctorZodSchema,
-    updateStatusZodSchema
+    updateStatusZodSchema,
+    createPatientZodSchema,
 }
