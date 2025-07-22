@@ -1,0 +1,80 @@
+model AppointmentSlot {
+  id          String       @id @default(uuid())
+  doctorId    String
+  startTime   DateTime
+  isBooked    Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+
+  doctor      Doctor       @relation(fields: [doctorId], references: [id])
+  appointment Appointment?
+}
+
+model Appointment {
+  id            String            @id @default(uuid())
+  patientId     String
+  doctorId      String
+  slotId        String            @unique
+  status        AppointmentStatus @default(SCHEDULED)
+  paymentStatus PaymentStatus     @default(UNPAID)
+  videoCallId   String?           @unique
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  patient      Patient       @relation(fields: [patientId], references: [id])
+  doctor       Doctor        @relation(fields: [doctorId], references: [id])
+  slot         AppointmentSlot @relation(fields: [slotId], references: [id])
+  payment      Payment?
+  prescription Prescription?
+  review       Review?
+}
+
+model Payment {
+  id                 String        @id @default(uuid())
+  appointmentId      String        @unique
+  amount             Float
+  transactionId      String        @unique
+  paymentStatus      PaymentStatus
+  paymentGatewayData Json?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+model Prescription {
+  id             String    @id @default(uuid())
+  appointmentId  String    @unique
+  doctorId       String
+  medications    Json
+  instructions   String?
+  followUpOnDate DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+  doctor      Doctor      @relation(fields: [doctorId], references: [id])
+}
+
+model Review {
+  id            String      @id @default(uuid())
+  appointmentId String      @unique
+  patientId     String
+  doctorId      String
+  rating        Int
+  comment       String?
+  createdAt     DateTime    @default(now())
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+  patient     Patient     @relation(fields: [patientId], references: [id])
+  doctor      Doctor      @relation(fields: [doctorId], references: [id])
+}
+
+model MedicalReport {
+  id         String   @id @default(uuid())
+  patientId  String
+  reportName String
+  reportLink String
+  createdAt  DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id])
+}

@@ -7,20 +7,22 @@ model User {
   needPasswordChange Boolean    @default(true)
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
-  admin              Admin?
-  doctor             Doctor?
-  Patient            Patient?
+
+  admin   Admin?
+  doctor  Doctor?
+  patient Patient?
 }
 
 model Admin {
   id            String   @id @default(uuid())
   name          String
   profilePhoto  String?
-  contactNumber String
+  contactNumber String?
   isDeleted     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  // Relation based on email
   email String @unique
   user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
 }
@@ -29,46 +31,58 @@ model Doctor {
   id                  String   @id @default(uuid())
   name                String
   profilePhoto        String?
-  contactNumber       String
+  contactNumber       String?
   address             String?
   registrationNumber  String   @unique
-  experience          Int?
-  gender              Gender
   appointmentFee      Float
   qualification       String
-  currentWorkingPlace String
-  designation         String
+  currentWorkingPlace String?
+  designation         String?
   isDeleted           Boolean  @default(false)
   averageRating       Float    @default(0)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
-  email String @unique
-  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+  // Relation based on email
+  email       String           @unique
+  user        User             @relation(fields: [email], references: [email], onDelete: Cascade)
+
+  specialties   DoctorSpecialty[]
+  schedules     DoctorSchedule[]
+  slots         AppointmentSlot[]
+  reviews       Review[]
+  prescriptions Prescription[]
+  appointments  Appointment[]
 }
 
 model Patient {
-  id                       String         @id @default(uuid())
-  name                     String
-  occupation               String?
-  dateOfBirth              DateTime?
-  gender                   Gender?
-  maritalStatus            MaritalStatus?
-  bloodGroup               BloodGroup?
-  hasAllergies             Boolean?
-  hasDiabetes              Boolean?
-  height                   String?
-  weight                   String?
-  dietaryPreferences       String?
-  pregnancyStatus          String?
-  immunizationStatus       String?
-  hasPastSurgeries         Boolean?
-  recentInjury             Boolean?
-  rawHistoryText           String?
-  structuredMedicalHistory Json?
-  createdAt                DateTime       @default(now())
-  updatedAt                DateTime       @updatedAt
+  id                         String        @id @default(uuid())
+  name                       String
+  occupation                 String?
+  dateOfBirth                DateTime?
+  gender                     Gender?
+  maritalStatus              MaritalStatus?
+  bloodGroup                 BloodGroup?
+  hasAllergies               Boolean?
+  hasDiabetes                Boolean?
+  height                     String?
+  weight                     String?
+  dietaryPreferences         String?
+  pregnancyStatus            String?
+  immunizationStatus         String?
+  hasPastSurgeries           Boolean?
+  recentInjury               Boolean?
+  rawHistoryText             String?
+  structuredMedicalHistory   Json?
+  isDeleted     Boolean  @default(false)
+  createdAt                  DateTime      @default(now())
+  updatedAt                  DateTime      @updatedAt
 
-  email String @unique
-  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+  // Relation based on email
+  email          String          @unique
+  user           User            @relation(fields: [email], references: [email], onDelete: Cascade)
+
+  appointments   Appointment[]
+  reviews        Review[]
+  medicalReports MedicalReport[]
 }
