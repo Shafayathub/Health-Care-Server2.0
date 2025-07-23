@@ -143,10 +143,6 @@ const getAllUser = async (
     });
   }
 
-  andConditions.push({
-    status: UserStatus.ACTIVE,
-  });
-
   const whereConditions: Prisma.UserWhereInput = { AND: andConditions };
   const result = await prisma.user.findMany({
     where: whereConditions,

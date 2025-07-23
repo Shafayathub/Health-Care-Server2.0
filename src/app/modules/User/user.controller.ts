@@ -4,7 +4,7 @@ import status from "http-status";
 import sendResponse from "../../utility/SendResponse";
 import catchAsync from "../../utility/CatchAsync";
 import pick from "../../utility/Pick";
-import { userSearchableFields } from "./user.constants";
+import { adminFilterableFields } from "../Admin/admin.constant";
 
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
@@ -38,7 +38,8 @@ const createPatient = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllUser = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, userSearchableFields);
+  console.log(req.query)
+  const filters = pick(req.query, adminFilterableFields);
   const options = pick(req.query, ["page", "limit", "sortBy", "sortOrder"]);
   const result = await userService.getAllUser(filters, options);
   sendResponse(res, {
