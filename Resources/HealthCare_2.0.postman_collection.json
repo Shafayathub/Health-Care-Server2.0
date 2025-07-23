@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "69465df7-4154-4fd7-83bd-60610470ddab",
-		"name": "HealthCare",
+		"_postman_id": "8f57ca7a-b063-465d-a4af-ed8b8f0a8123",
+		"name": "HealthCare_2.0",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "31641809"
+		"_exporter_id": "31641809",
+		"_collection_link": "https://warped-crater-802760.postman.co/workspace/Next_Level_Instructor~97293662-b199-4ba3-89c7-edbe0627707c/collection/31641809-8f57ca7a-b063-465d-a4af-ed8b8f0a8123?action=share&source=collection_link&creator=31641809"
 	},
 	"item": [
 		{
@@ -16,7 +17,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{ADMIN_TOKEN}}",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUzMTgwOTcxLCJleHAiOjE3NTM3ODU3NzF9.a7cQtaLD5GRG17-lV_OWdJxUv9ecxsbHqLJ1UsbNFiM",
 								"type": "text"
 							}
 						],
@@ -46,7 +47,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{ADMIN_TOKEN}}",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNzQ5NTMyLCJleHAiOjE3NTMzNTQzMzJ9.qHo08Xf4QveDRypJOyZnmvsb4yS2vsIhAQyGPg67oew",
 								"type": "text"
 							}
 						],
@@ -56,11 +57,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/fahimahammedfiroz/Downloads/programminghero_logo.jpeg"
+									"src": "/D:/Photos/Next_Level/Level_2_Logo-01-jpg.jpg"
 								},
 								{
 									"key": "data",
-									"value": "{\n    \"password\" : \"123456\",\n    \"admin\" : {\n        \"name\" : \"Mezba\",\n        \"email\" : \"mezba12@ph.com\",\n        \"contactNumber\": \"0123456789\"\n    }\n}",
+									"value": "{\n    \"password\": \"123456\",\n    \"admin\": {\n        \"name\": \"Mezba\",\n        \"email\": \"mezba0001@ph.com\",\n        \"contactNumber\": \"0123456789\"\n    }\n}",
 									"type": "text"
 								}
 							]
@@ -118,23 +119,17 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{ADMIN_TOKEN}}",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNGM1ZTU2My1kOWI4LTQ1ZTItYmQyZC1hYTMyNmI4NDUwMzQiLCJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcxMTQ3NTc5NCwiZXhwIjoxNzExNTYyMTk0fQ.4bRK7vjy8NlGBoRqL2WBH06ODcW_w6rxz3vmhM9OOyM",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUzMTgwOTcxLCJleHAiOjE3NTM3ODU3NzF9.a7cQtaLD5GRG17-lV_OWdJxUv9ecxsbHqLJ1UsbNFiM",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{BASE_URL}}/user/?status=ACTIVE",
+							"raw": "{{BASE_URL}}/user",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"user",
-								""
+								"user"
 							],
 							"query": [
 								{
@@ -149,7 +144,8 @@
 								},
 								{
 									"key": "status",
-									"value": "ACTIVE"
+									"value": "ACTIVE",
+									"disabled": true
 								}
 							]
 						}
@@ -267,7 +263,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"patient@gmail.com\",\n    \"password\": \"123456\"\n}\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
+							"raw": "{\n    \"email\": \"shafayat.ph@programming-hero.com\",\n    \"password\": \"123456\"\n}\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -294,7 +290,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{PATIENT_TOKEN}}",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNDExMzY3LCJleHAiOjE3NTI0MTE2Njd9.46zhxHmblhT6IHhViM2YbSQgq47Qr7qRbo4HLijNL5o",
 								"type": "text"
 							}
 						],
@@ -315,7 +311,13 @@
 					"name": "Forgot Password",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0Lm1zQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNTgwMjczLCJleHAiOjE3NTI1ODA1NzN9.T88ZaHMjAPHZLTzS4wgd49yQ8mACnSHX2z11ZRQrONU",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"email\": \"fahimahammed.cse@gmail.com\"\n}",
@@ -484,7 +486,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{ADMIN_TOKEN}}",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNTgwMjMzLCJleHAiOjE3NTI1ODA1MzN9.cHP2mbFZPNRewXXcLtrApJ9Zp3Onb1Wnf3S53GHhDvk",
 								"type": "text"
 							}
 						],
@@ -1238,17 +1240,17 @@
 		},
 		{
 			"key": "ADMIN_TOKEN",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODQ0MTQxZC1kOWRiLTRiOTUtYjkwOS1hYzQzNjUwZDgwOTUiLCJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImprckBwaC5jb20iLCJpYXQiOjE3MTMxODY5MTksImV4cCI6MTcxMzI3MzMxOX0.5kMPlAjkfHBw984HPY_-eowax_X6S04J0RoWac3iWU8",
+			"value": "",
 			"type": "string"
 		},
 		{
 			"key": "DOCTOR_TOKEN",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxZTY3ZmI4MS0yMGIxLTQ2ZmItYjRkYS1mZTQyNjBmZDk0NjMiLCJyb2xlIjoiRE9DVE9SIiwiZW1haWwiOiJkb2N0b3JAZ21haWwuY29tIiwiaWF0IjoxNzExNDc1OTg5LCJleHAiOjE3MTE1NjIzODl9.YzI2Bz1ZSwg-pyxO2_2R_ryaqbUGPEHYEji_oVZ3hok",
+			"value": "",
 			"type": "string"
 		},
 		{
 			"key": "PATIENT_TOKEN",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlOWQwZDc4My0xMzNmLTRhMDktYTJlNy1mN2VjNDIxODZkYjEiLCJyb2xlIjoiUEFUSUVOVCIsImVtYWlsIjoidGFubW95QGdtYWlsLmNvbSIsImlhdCI6MTcxNDIwMzQ0OSwiZXhwIjoxNzQ1NzM5NDQ5fQ.XNODm8lKf3s50GTH0xtB7cRroTbBM-qFOne7pHO5xxM",
+			"value": "",
 			"type": "string"
 		}
 	]
