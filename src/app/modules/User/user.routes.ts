@@ -38,4 +38,11 @@ router.get(
   userController.getAllUser
 );
 
+router.patch(
+  "/:id/status",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  validateRequest(userValidation.updateStatusZodSchema),
+  userController.updateStatus
+);
+
 export const userRoutes = router;

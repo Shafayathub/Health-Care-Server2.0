@@ -23,52 +23,60 @@ const createDoctorZodSchema = z.object({
     error: "Password is required",
   }),
   doctor: z.object({
-    name: z.string({
-    error: "Name is required!",
-  }).min(1, "Name cannot be empty."),
+    name: z
+      .string({
+        error: "Name is required!",
+      })
+      .min(1, "Name cannot be empty."),
 
-  // Required email field with email validation
-  email: z.string({
-    error: "Email is required!",
-  }).email("Please provide a valid email address."),
+    // Required email field with email validation
+    email: z
+      .string({
+        error: "Email is required!",
+      })
+      .email("Please provide a valid email address."),
 
-  // Optional string field for the profile photo URL
-  profilePhoto: z.string().url("Please provide a valid URL.").optional(),
+    // Optional string field for the profile photo URL
+    profilePhoto: z.string().url("Please provide a valid URL.").optional(),
 
-  // Optional string field for contact number
-  contactNumber: z.string().optional(),
+    // Optional string field for contact number
+    contactNumber: z.string().optional(),
 
-  // Optional string field for address
-  address: z.string().optional(),
+    // Optional string field for address
+    address: z.string().optional(),
 
-  // Required string field for registration number
-  registrationNumber: z.string({
-    error: "Registration number is required!",
-  }).min(1, "Registration number cannot be empty."),
+    // Required string field for registration number
+    registrationNumber: z
+      .string({
+        error: "Registration number is required!",
+      })
+      .min(1, "Registration number cannot be empty."),
 
-  // Required number field for appointment fee.
-  // Using coerce to handle cases where the input might be a string (e.g., from a form).
-  appointmentFee: z.coerce.number({
-    error: "Appointment fee is required.",
-  }).positive("Appointment fee must be a positive number."),
+    // Required number field for appointment fee.
+    // Using coerce to handle cases where the input might be a string (e.g., from a form).
+    appointmentFee: z.coerce
+      .number({
+        error: "Appointment fee is required.",
+      })
+      .positive("Appointment fee must be a positive number."),
 
-  // Required string field for qualification
-  qualification: z.string({
-    error: "Qualification is required!",
-  }).min(1, "Qualification cannot be empty."),
+    // Required string field for qualification
+    qualification: z
+      .string({
+        error: "Qualification is required!",
+      })
+      .min(1, "Qualification cannot be empty."),
 
-  // Optional string field for current working place
-  currentWorkingPlace: z.string().optional(),
+    // Optional string field for current working place
+    currentWorkingPlace: z.string().optional(),
 
-  // Optional string field for designation
-  designation: z.string().optional(),
+    // Optional string field for designation
+    designation: z.string().optional(),
   }),
 });
 
 const updateStatusZodSchema = z.object({
-  body: z.object({
-    status: z.enum([UserStatus.ACTIVE, UserStatus.BLOCKED, UserStatus.DELETED]),
-  }),
+  status: z.enum([UserStatus.ACTIVE, UserStatus.BLOCKED, UserStatus.DELETED]),
 });
 
 const createPatientZodSchema = z.object({

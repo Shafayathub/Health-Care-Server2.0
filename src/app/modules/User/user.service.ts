@@ -7,7 +7,8 @@ import { Request } from "express";
 import { IAdminFilterRequest } from "../Admin/admin.interface";
 import { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../utility/PaginationHelper";
-import { userSearchableFields } from "./user.constants";
+import { userFilterableFields } from "./user.constants";
+
 
 const createAdminIntoDB = async (req: Request) => {
   console.log(req.body);
@@ -125,7 +126,7 @@ const getAllUser = async (
   const andConditions: Prisma.UserWhereInput[] = [];
   if (searchTerm) {
     andConditions.push({
-      OR: userSearchableFields.map((field) => ({
+      OR: userFilterableFields.map((field:string) => ({
         [field]: {
           contains: searchTerm,
           mode: "insensitive",
@@ -147,6 +148,17 @@ const getAllUser = async (
   const result = await prisma.user.findMany({
     where: whereConditions,
     ...paginationOptions,
+    select: {
+      id: true,
+      email: true,
+      role: true,
+      status: true,
+      admin: true,
+      doctor: true,
+      patient: true,
+      createdAt: true,
+      updatedAt: true,
+    }
   });
   const total = await prisma.user.count({
     where: whereConditions,
@@ -161,9 +173,22 @@ const getAllUser = async (
   };
 };
 
+const updateStatus = async (id: string, status: UserStatus) => {
+  const result = await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      status,
+    },
+  });
+  return result;
+};
+
 export const userService = {
   createAdminIntoDB,
   createDoctorIntoDB,
   createPatientIntoDB,
   getAllUser,
+  updateStatus,
 };
