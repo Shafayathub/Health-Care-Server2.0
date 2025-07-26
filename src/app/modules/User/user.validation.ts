@@ -134,9 +134,38 @@ const createPatientZodSchema = z.object({
   }),
 });
 
+const updateMyProfileZodSchema = z.object({
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  contactNumber: z.string().optional(),
+  address: z.string().optional(),
+  gender: z.enum([Gender.MALE, Gender.FEMALE]).optional(),
+  age: z.number().optional(),
+  bloodGroup: z
+    .enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
+    .optional(),
+  height: z.number().optional(),
+  weight: z.number().optional(),
+  guardian: z
+    .object({
+      name: z.string().optional(),
+      email: z.string().email().optional(),
+      contactNumber: z.string().optional(),
+      address: z.string().optional(),
+      gender: z.enum([Gender.MALE, Gender.FEMALE]).optional(),
+      age: z.number().optional(),
+      bloodGroup: z
+        .enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"])
+        .optional(),
+    })
+    .optional(),
+  profilePhoto: z.string().url("Please provide a valid URL.").optional(),
+});
+
 export const userValidation = {
   createAdminZodSchema,
   createDoctorZodSchema,
   updateStatusZodSchema,
   createPatientZodSchema,
+  updateMyProfileZodSchema,
 };

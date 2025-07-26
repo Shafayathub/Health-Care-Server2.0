@@ -51,5 +51,13 @@ router.get(
   userController.getMyProfile
 );
 
+router.patch(
+  "/update-my-profile",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.PATIENT, UserRole.DOCTOR),
+  fileUploader.upload.single("file"),
+  validateRequest(userValidation.updateMyProfileZodSchema),
+  userController.updateMyProfile
+);
+
 
 export const userRoutes = router;
