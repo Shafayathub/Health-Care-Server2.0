@@ -1,7 +1,8 @@
 model Specialty {
   id          String   @id @default(uuid())
-  name        String   @unique
+  title        String   @unique
   description String?
+  icon        String?
 
   doctors DoctorSpecialty[]
 }

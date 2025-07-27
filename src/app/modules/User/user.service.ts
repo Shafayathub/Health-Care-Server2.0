@@ -8,6 +8,7 @@ import { IAdminFilterRequest } from "../Admin/admin.interface";
 import { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../utility/PaginationHelper";
 import { userFilterableFields } from "./user.constants";
+import { IAuthUser } from "../../interfaces/common";
 
 
 const createAdminIntoDB = async (req: Request) => {
@@ -185,7 +186,8 @@ const updateStatus = async (id: string, status: UserStatus) => {
 };
 
 
-const getMyProfile = async (user: any) => {
+const getMyProfile = async (user: IAuthUser) => {
+
      const userInfo = await prisma.user.findUniqueOrThrow({
         where: {
             email: user?.email,
@@ -234,7 +236,7 @@ const getMyProfile = async (user: any) => {
     return { ...userInfo, ...profileInfo };
 }
 
-const updateMyProfie = async (user: any, req: Request) => {
+const updateMyProfie = async (user: IAuthUser, req: Request) => {
     const userInfo = await prisma.user.findUniqueOrThrow({
         where: {
             email: user?.email,
