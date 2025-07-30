@@ -1,0 +1,40 @@
+model Specialty {
+  id          String   @id @default(uuid())
+  title        String   @unique
+  description String?
+  icon        String?
+
+  doctors DoctorSpecialty[]
+}
+
+model DoctorSpecialty {
+  doctorId    String
+  specialtyId String
+
+  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+  specialty Specialty @relation(fields: [specialtyId], references: [id])
+
+  @@id([doctorId, specialtyId])
+}
+
+model Schedule {
+  id        String   @id @default(uuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+  isDeleted Boolean  @default(false)
+
+  doctors DoctorSchedule[]
+  @@map("schedules")
+}
+
+model DoctorSchedule {
+  doctorId   String
+  scheduleId String
+  
+  doctor   Doctor   @relation(fields: [doctorId], references: [id])
+  schedule Schedule @relation(fields: [scheduleId], references: [id])
+
+  @@id([doctorId, scheduleId]) 
+  @@map("doctor_schedules")
+}

@@ -8,8 +8,56 @@ import { userValidation } from "./user.validation";
 
 const router = express.Router();
 
-router.post("/create-admin", auth(UserRole.ADMIN, UserRole.SUPER_ADMIN), validateRequest(userValidation.createAdminZodSchema), fileUploader.upload.single('file'), userController.createAdmin);
-router.post("/create-doctor", auth(UserRole.ADMIN, UserRole.SUPER_ADMIN), validateRequest(userValidation.createDoctorZodSchema), fileUploader.upload.single('file'), userController.createDoctor);
+router.post(
+  "/create-admin",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  fileUploader.upload.single("file"),
+  validateRequest(userValidation.createAdminZodSchema),
+  userController.createAdmin
+);
+
+router.post(
+  "/create-doctor",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+
+  fileUploader.upload.single("file"),
+  validateRequest(userValidation.createDoctorZodSchema),
+  userController.createDoctor
+);
+router.post(
+  "/create-patient",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.PATIENT, UserRole.DOCTOR),
+  validateRequest(userValidation.createPatientZodSchema),
+  fileUploader.upload.single("file"),
+  userController.createPatient
+);
+
+router.get(
+  "/",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  userController.getAllUser
+);
+
+router.patch(
+  "/:id/status",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  validateRequest(userValidation.updateStatusZodSchema),
+  userController.updateStatus
+);
+
+router.get(
+  "/me",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.PATIENT, UserRole.DOCTOR),
+  userController.getMyProfile
+);
+
+router.patch(
+  "/update-my-profile",
+  auth(UserRole.ADMIN, UserRole.SUPER_ADMIN, UserRole.PATIENT, UserRole.DOCTOR),
+  fileUploader.upload.single("file"),
+  validateRequest(userValidation.updateMyProfileZodSchema),
+  userController.updateMyProfile
+);
 
 
 export const userRoutes = router;
