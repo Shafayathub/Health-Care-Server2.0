@@ -2,6 +2,9 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import mainRouter from './app/routes';
+import globalErrorHandler from './app/middlewares/GlobalErrorHandler';
+import notFound from './app/middlewares/NotFound';
+import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 
@@ -9,6 +12,7 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // --- API Routes ---
 
@@ -29,10 +33,10 @@ app.get('/api/v1/health', (req: Request, res: Response) => {
 app.use('/api/v1', mainRouter);
 
 // error handling throgh NextFunction
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 // not found route
-// app.use(notFound);
+app.use(notFound);
 
 
 export default app;

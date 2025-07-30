@@ -1,0 +1,81 @@
+import { UserStatus } from "@prisma/client";
+import bcrypt from 'bcryptjs'
+import prisma from "../../utility/prisma";
+import { jwtHelpers } from "../../utility/jwtHelper";
+import config from "../../config";
+
+const loginUser = async (payload: {
+    email: string,
+    password: string
+}) => {
+    const userData = await prisma.user.findUniqueOrThrow({
+        where: {
+            email: payload.email,
+            status: UserStatus.ACTIVE
+        }
+    });
+
+    const isCorrectPassword: boolean = await bcrypt.compare(payload.password, userData.password);
+
+    if (!isCorrectPassword) {
+        throw new Error("Password incorrect!")
+    }
+    const accessToken = jwtHelpers.generateToken({
+        email: userData.email,
+        role: userData.role
+    },
+        config.accessTokenSecret as string,
+        config.accessTokenExpiresIn as string
+    );
+
+    const refreshToken = jwtHelpers.generateToken({
+        email: userData.email,
+        role: userData.role
+    },
+        config.refreshTokenSecret as string,
+        config.refreshTokenExpiresIn as string
+    );
+
+    return {
+        accessToken,
+        refreshToken,
+        needPasswordChange: userData.needPasswordChange
+    };
+};
+
+
+const refreshToken = async (token: string) => {
+    let decodedData;
+    try {
+        decodedData = jwtHelpers.verifyToken(token, 'abcdefghgijklmnop');
+    }
+    catch (err) {
+        throw new Error("You are not authorized!")
+    }
+
+    const userData = await prisma.user.findUniqueOrThrow({
+        where: {
+            email: decodedData.email,
+            status: UserStatus.ACTIVE
+        }
+    });
+
+    const accessToken = jwtHelpers.generateToken({
+        email: userData.email,
+        role: userData.role
+    },
+        config.accessTokenSecret as string,
+        config.accessTokenExpiresIn as string
+    );
+
+    return {
+        accessToken,
+        needPasswordChange: userData.needPasswordChange
+    };
+
+}
+
+export const AuthServices = {
+    loginUser,
+    refreshToken
+}
