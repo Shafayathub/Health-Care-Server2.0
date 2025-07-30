@@ -25,6 +25,7 @@ model Schedule {
   isDeleted Boolean  @default(false)
 
   doctors DoctorSchedule[]
+  @@map("schedules")
 }
 
 model DoctorSchedule {
@@ -34,5 +35,6 @@ model DoctorSchedule {
   doctor   Doctor   @relation(fields: [doctorId], references: [id])
   schedule Schedule @relation(fields: [scheduleId], references: [id])
 
-  @@id([doctorId, scheduleId])
+  @@id([doctorId, scheduleId]) 
+  @@map("doctor_schedules")
 }

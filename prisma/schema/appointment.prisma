@@ -7,6 +7,7 @@ model AppointmentSlot {
 
   doctor      Doctor       @relation(fields: [doctorId], references: [id])
   appointment Appointment?
+  @@map("appointment_slots")
 }
 
 model Appointment {
@@ -26,6 +27,8 @@ model Appointment {
   payment      Payment?
   prescription Prescription?
   review       Review?
+  @@map("appointments")
+  @@index([slotId])
 }
 
 model Payment {
@@ -39,6 +42,7 @@ model Payment {
   updatedAt          DateTime      @updatedAt
 
   appointment Appointment @relation(fields: [appointmentId], references: [id])
+  @@map("payments")
 }
 
 model Prescription {
@@ -53,6 +57,7 @@ model Prescription {
 
   appointment Appointment @relation(fields: [appointmentId], references: [id])
   doctor      Doctor      @relation(fields: [doctorId], references: [id])
+  @@map("prescriptions")
 }
 
 model Review {
@@ -67,6 +72,7 @@ model Review {
   appointment Appointment @relation(fields: [appointmentId], references: [id])
   patient     Patient     @relation(fields: [patientId], references: [id])
   doctor      Doctor      @relation(fields: [doctorId], references: [id])
+  @@map("reviews")
 }
 
 model MedicalReport {
@@ -77,4 +83,5 @@ model MedicalReport {
   createdAt  DateTime @default(now())
 
   patient Patient @relation(fields: [patientId], references: [id])
+  @@map("medical_reports")
 }

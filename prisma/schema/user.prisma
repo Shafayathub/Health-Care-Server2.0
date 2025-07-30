@@ -11,6 +11,7 @@ model User {
   admin   Admin?
   doctor  Doctor?
   patient Patient?
+  @@map("users")
 }
 
 model Admin {
@@ -25,6 +26,7 @@ model Admin {
   // Relation based on email
   email String @unique
   user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+  @@map("admins")
 }
 
 model Doctor {
@@ -53,6 +55,7 @@ model Doctor {
   reviews       Review[]
   prescriptions Prescription[]
   appointments  Appointment[]
+  @@map("doctors")
 }
 
 model Patient {
@@ -85,4 +88,5 @@ model Patient {
   appointments   Appointment[]
   reviews        Review[]
   medicalReports MedicalReport[]
+  @@map("patients")
 }
