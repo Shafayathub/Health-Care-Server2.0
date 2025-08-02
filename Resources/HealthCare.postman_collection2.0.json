@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "8f57ca7a-b063-465d-a4af-ed8b8f0a8123",
-		"name": "HealthCare_2.0",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_postman_id": "05a3e54e-5882-40f8-bd28-486752398450",
+		"name": "HealthCare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31641809",
-		"_collection_link": "https://warped-crater-802760.postman.co/workspace/Next_Level_Instructor~97293662-b199-4ba3-89c7-edbe0627707c/collection/31641809-8f57ca7a-b063-465d-a4af-ed8b8f0a8123?action=share&source=collection_link&creator=31641809"
+		"_collection_link": "https://warped-crater-802760.postman.co/workspace/Next_Level_Instructor~97293662-b199-4ba3-89c7-edbe0627707c/collection/31641809-05a3e54e-5882-40f8-bd28-486752398450?action=share&source=collection_link&creator=31641809"
 	},
 	"item": [
 		{
@@ -17,7 +17,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUzMTgwOTcxLCJleHAiOjE3NTM3ODU3NzF9.a7cQtaLD5GRG17-lV_OWdJxUv9ecxsbHqLJ1UsbNFiM",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -36,7 +36,16 @@
 								}
 							]
 						},
-						"url": "{{url}}/user/create-doctor"
+						"url": {
+							"raw": "{{url}}/user/create-doctor",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-doctor"
+							]
+						}
 					},
 					"response": []
 				},
@@ -47,7 +56,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNzQ5NTMyLCJleHAiOjE3NTMzNTQzMzJ9.qHo08Xf4QveDRypJOyZnmvsb4yS2vsIhAQyGPg67oew",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -57,16 +66,25 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/D:/Photos/Next_Level/Level_2_Logo-01-jpg.jpg"
+									"src": "/Users/fahimahammedfiroz/Downloads/programminghero_logo.jpeg"
 								},
 								{
 									"key": "data",
-									"value": "{\n    \"password\": \"123456\",\n    \"admin\": {\n        \"name\": \"Mezba\",\n        \"email\": \"mezba0001@ph.com\",\n        \"contactNumber\": \"0123456789\"\n    }\n}",
+									"value": "{\n    \"password\" : \"123456\",\n    \"admin\" : {\n        \"name\" : \"Mezba\",\n        \"email\" : \"mezba12@ph.com\",\n        \"contactNumber\": \"0123456789\"\n    }\n}",
 									"type": "text"
 								}
 							]
 						},
-						"url": "{{url}}/user/create-admin"
+						"url": {
+							"raw": "{{url}}/user/create-admin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-admin"
+							]
+						}
 					},
 					"response": []
 				},
@@ -90,7 +108,16 @@
 								}
 							]
 						},
-						"url": "{{url}}/user/create-patient"
+						"url": {
+							"raw": "{{url}}/user/create-patient",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"create-patient"
+							]
+						}
 					},
 					"response": []
 				},
@@ -108,7 +135,17 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/user/0ceb274f-e663-40eb-83db-9df66d19bd0d/status"
+						"url": {
+							"raw": "{{BASE_URL}}/user/0ceb274f-e663-40eb-83db-9df66d19bd0d/status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"0ceb274f-e663-40eb-83db-9df66d19bd0d",
+								"status"
+							]
+						}
 					},
 					"response": []
 				},
@@ -119,17 +156,23 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUzMTgwOTcxLCJleHAiOjE3NTM3ODU3NzF9.a7cQtaLD5GRG17-lV_OWdJxUv9ecxsbHqLJ1UsbNFiM",
+								"value": "{{ADMIN_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNGM1ZTU2My1kOWI4LTQ1ZTItYmQyZC1hYTMyNmI4NDUwMzQiLCJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcxMTQ3NTc5NCwiZXhwIjoxNzExNTYyMTk0fQ.4bRK7vjy8NlGBoRqL2WBH06ODcW_w6rxz3vmhM9OOyM",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{BASE_URL}}/user",
+							"raw": "{{BASE_URL}}/user/?status=ACTIVE",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"user"
+								"user",
+								""
 							],
 							"query": [
 								{
@@ -144,8 +187,7 @@
 								},
 								{
 									"key": "status",
-									"value": "ACTIVE",
-									"disabled": true
+									"value": "ACTIVE"
 								}
 							]
 						}
@@ -263,14 +305,23 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"shafayat.ph@programming-hero.com\",\n    \"password\": \"123456\"\n}\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
+							"raw": "{\n    \"email\": \"patient@gmail.com\",\n    \"password\": \"123456\"\n}\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{url}}/auth/login"
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				},
@@ -279,7 +330,16 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "{{BASE_URL}}/auth/refresh-token"
+						"url": {
+							"raw": "{{BASE_URL}}/auth/refresh-token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
 					},
 					"response": []
 				},
@@ -290,7 +350,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNDExMzY3LCJleHAiOjE3NTI0MTE2Njd9.46zhxHmblhT6IHhViM2YbSQgq47Qr7qRbo4HLijNL5o",
+								"value": "{{PATIENT_TOKEN}}",
 								"type": "text"
 							}
 						],
@@ -303,7 +363,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/auth/change-password"
+						"url": {
+							"raw": "{{BASE_URL}}/auth/change-password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
 					},
 					"response": []
 				},
@@ -311,13 +380,7 @@
 					"name": "Forgot Password",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0Lm1zQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNTgwMjczLCJleHAiOjE3NTI1ODA1NzN9.T88ZaHMjAPHZLTzS4wgd49yQ8mACnSHX2z11ZRQrONU",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"email\": \"fahimahammed.cse@gmail.com\"\n}",
@@ -327,7 +390,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/auth/forgot-password"
+						"url": {
+							"raw": "{{BASE_URL}}/auth/forgot-password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"forgot-password"
+							]
+						}
 					},
 					"response": []
 				},
@@ -351,7 +423,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/auth/reset-password"
+						"url": {
+							"raw": "{{BASE_URL}}/auth/reset-password",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"reset-password"
+							]
+						}
 					},
 					"response": []
 				}
@@ -410,7 +491,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{BASE_URL}}/doctor/3369f9af-9d24-44ea-befc-f5b8066a806e"
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/3369f9af-9d24-44ea-befc-f5b8066a806e",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"3369f9af-9d24-44ea-befc-f5b8066a806e"
+							]
+						}
 					},
 					"response": []
 				},
@@ -434,7 +524,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/doctor/bfecddcd-6671-4a51-9ea3-496bc500a4df"
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/bfecddcd-6671-4a51-9ea3-496bc500a4df",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"bfecddcd-6671-4a51-9ea3-496bc500a4df"
+							]
+						}
 					},
 					"response": []
 				},
@@ -452,7 +551,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/doctor/082e08dc-4764-4b32-b481-c3025235db75"
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/082e08dc-4764-4b32-b481-c3025235db75",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"082e08dc-4764-4b32-b481-c3025235db75"
+							]
+						}
 					},
 					"response": []
 				},
@@ -470,7 +578,17 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/doctor/soft/4d8d94b3-8985-4586-9f25-6b78479b8492"
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/soft/4d8d94b3-8985-4586-9f25-6b78479b8492",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"soft",
+								"4d8d94b3-8985-4586-9f25-6b78479b8492"
+							]
+						}
 					},
 					"response": []
 				}
@@ -486,11 +604,19 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNoYWZheWF0LnBoQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzUyNTgwMjMzLCJleHAiOjE3NTI1ODA1MzN9.cHP2mbFZPNRewXXcLtrApJ9Zp3Onb1Wnf3S53GHhDvk",
+								"value": "{{ADMIN_TOKEN}}",
 								"type": "text"
 							}
 						],
-						"url": "{{url}}/admin"
+						"url": {
+							"raw": "{{url}}/admin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin"
+							]
+						}
 					},
 					"response": []
 				},
@@ -499,7 +625,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{BASE_URL}}/admin/85827a01-dc9e-4bd8-854a-cdc40c202aa7"
+						"url": {
+							"raw": "{{BASE_URL}}/admin/85827a01-dc9e-4bd8-854a-cdc40c202aa7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"85827a01-dc9e-4bd8-854a-cdc40c202aa7"
+							]
+						}
 					},
 					"response": []
 				},
@@ -523,7 +658,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/admin/9a4680e5-71fe-425b-9323-491192264499"
+						"url": {
+							"raw": "{{BASE_URL}}/admin/9a4680e5-71fe-425b-9323-491192264499",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"9a4680e5-71fe-425b-9323-491192264499"
+							]
+						}
 					},
 					"response": []
 				},
@@ -532,7 +676,16 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{BASE_URL}}/admin/8b118215-668b-4d79-9e6b-bfa4485f54ae"
+						"url": {
+							"raw": "{{BASE_URL}}/admin/8b118215-668b-4d79-9e6b-bfa4485f54ae",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"8b118215-668b-4d79-9e6b-bfa4485f54ae"
+							]
+						}
 					},
 					"response": []
 				},
@@ -541,7 +694,17 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{BASE_URL}}/admin/soft/8b118215-668b-4d79-9e6b-bfa4485f54ae"
+						"url": {
+							"raw": "{{BASE_URL}}/admin/soft/8b118215-668b-4d79-9e6b-bfa4485f54ae",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"admin",
+								"soft",
+								"8b118215-668b-4d79-9e6b-bfa4485f54ae"
+							]
+						}
 					},
 					"response": []
 				}
@@ -579,7 +742,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55"
+						"url": {
+							"raw": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
 					},
 					"response": []
 				},
@@ -597,7 +769,16 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55"
+						"url": {
+							"raw": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
 					},
 					"response": []
 				},
@@ -606,7 +787,16 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55"
+						"url": {
+							"raw": "{{BASE_URL}}/patient/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
 					},
 					"response": []
 				},
@@ -615,7 +805,17 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{BASE_URL}}/patient/soft/87f85211-5468-4d4a-8343-087751240c55"
+						"url": {
+							"raw": "{{BASE_URL}}/patient/soft/87f85211-5468-4d4a-8343-087751240c55",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patient",
+								"soft",
+								"87f85211-5468-4d4a-8343-087751240c55"
+							]
+						}
 					},
 					"response": []
 				}
@@ -650,7 +850,15 @@
 								}
 							]
 						},
-						"url": "{{url}}/specialties"
+						"url": {
+							"raw": "{{url}}/specialties",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties"
+							]
+						}
 					},
 					"response": []
 				},
@@ -668,7 +876,16 @@
 								}
 							}
 						},
-						"url": "{{url}}/specialties/71e84272-2b32-47b5-a006-4a797e6bc545"
+						"url": {
+							"raw": "{{url}}/specialties/71e84272-2b32-47b5-a006-4a797e6bc545",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties",
+								"71e84272-2b32-47b5-a006-4a797e6bc545"
+							]
+						}
 					},
 					"response": []
 				},
@@ -677,7 +894,15 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/specialties"
+						"url": {
+							"raw": "{{url}}/specialties",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties"
+							]
+						}
 					},
 					"response": []
 				}
@@ -706,7 +931,15 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/schedule"
+						"url": {
+							"raw": "{{BASE_URL}}/schedule",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schedule"
+							]
+						}
 					},
 					"response": []
 				},
@@ -754,7 +987,16 @@
 								"type": "text"
 							}
 						],
-						"url": "{{BASE_URL}}/schedule/7608eef7-881d-431f-9244-eab4ebabd9e8"
+						"url": {
+							"raw": "{{BASE_URL}}/schedule/7608eef7-881d-431f-9244-eab4ebabd9e8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schedule",
+								"7608eef7-881d-431f-9244-eab4ebabd9e8"
+							]
+						}
 					},
 					"response": []
 				},
@@ -763,7 +1005,16 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "{{BASE_URL}}/schedule/589220db-50cd-43a6-bc64-825ac4ac5fdb"
+						"url": {
+							"raw": "{{BASE_URL}}/schedule/589220db-50cd-43a6-bc64-825ac4ac5fdb",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schedule",
+								"589220db-50cd-43a6-bc64-825ac4ac5fdb"
+							]
+						}
 					},
 					"response": []
 				}
@@ -792,7 +1043,15 @@
 								}
 							}
 						},
-						"url": "{{url}}/doctor-schedule"
+						"url": {
+							"raw": "{{url}}/doctor-schedule",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"doctor-schedule"
+							]
+						}
 					},
 					"response": []
 				},
@@ -902,7 +1161,16 @@
 								"type": "text"
 							}
 						],
-						"url": "{{BASE_URL}}/doctor-schedule/917231f7-7cc5-4a7a-9d3d-3a485ba190b0"
+						"url": {
+							"raw": "{{BASE_URL}}/doctor-schedule/917231f7-7cc5-4a7a-9d3d-3a485ba190b0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor-schedule",
+								"917231f7-7cc5-4a7a-9d3d-3a485ba190b0"
+							]
+						}
 					},
 					"response": []
 				}
@@ -931,7 +1199,15 @@
 								}
 							}
 						},
-						"url": "{{url}}/appointment"
+						"url": {
+							"raw": "{{url}}/appointment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"appointment"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1054,7 +1330,17 @@
 								}
 							}
 						},
-						"url": "{{BASE_URL}}/appointment/status/ba3a55f1-49b1-42a0-a226-b1f2c60c92d3"
+						"url": {
+							"raw": "{{BASE_URL}}/appointment/status/ba3a55f1-49b1-42a0-a226-b1f2c60c92d3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"appointment",
+								"status",
+								"ba3a55f1-49b1-42a0-a226-b1f2c60c92d3"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1074,7 +1360,17 @@
 								"type": "text"
 							}
 						],
-						"url": "{{BASE_URL}}/payment/init/ed20fa08-dd24-4167-bef2-db10d59736b0"
+						"url": {
+							"raw": "{{BASE_URL}}/payment/init/ed20fa08-dd24-4167-bef2-db10d59736b0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"payment",
+								"init",
+								"ed20fa08-dd24-4167-bef2-db10d59736b0"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1127,7 +1423,15 @@
 								}
 							}
 						},
-						"url": "{{url}}/prescription"
+						"url": {
+							"raw": "{{url}}/prescription",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"prescription"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1142,7 +1446,16 @@
 								"type": "text"
 							}
 						],
-						"url": "{{url}}/prescription/my-prescriptions"
+						"url": {
+							"raw": "{{url}}/prescription/my-prescriptions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"prescription",
+								"my-prescriptions"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1171,7 +1484,15 @@
 								}
 							}
 						},
-						"url": "{{url}}/review"
+						"url": {
+							"raw": "{{url}}/review",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"review"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1180,7 +1501,15 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{url}}/review"
+						"url": {
+							"raw": "{{url}}/review",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"review"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1200,7 +1529,15 @@
 								"type": "text"
 							}
 						],
-						"url": "{{BASE_URL}}/metadata"
+						"url": {
+							"raw": "{{BASE_URL}}/metadata",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"metadata"
+							]
+						}
 					},
 					"response": []
 				}
