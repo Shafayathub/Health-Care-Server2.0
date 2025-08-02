@@ -1,32 +1,37 @@
 import { Doctor, Prisma, UserStatus } from "@prisma/client";
-import { IPaginationOptions } from "../../interfaces/pagination";
-import { paginationHelper } from "../../utility/PaginationHelper";
+import prisma from "../../../shared/prisma";
 import { IDoctorFilterRequest, IDoctorUpdate } from "./doctor.interface";
+import { IPaginationOptions } from "../../interfaces/pagination";
+import { paginationHelper } from "../../../helpars/paginationHelper";
 import { doctorSearchableFields } from "./doctor.constants";
-import prisma from "../../utility/prisma";
 
+const getAllFromDB = async (
+    filters: IDoctorFilterRequest,
+    options: IPaginationOptions,
+) => {
+    const { limit, page, skip } = paginationHelper.calculatePagination(options);
+    const { searchTerm, specialties, ...filterData } = filters;
 
+    const andConditions: Prisma.DoctorWhereInput[] = [];
 
-const getAllFromDB = async (params: IDoctorFilterRequest, options: IPaginationOptions) => {
-  const { searchTerm, specialties, ...filterData } = params;
-  const paginationOptions = paginationHelper.calculatePagination(options);
-  const andConditions: Prisma.DoctorWhereInput[] = [];
-  if (searchTerm) {
-    andConditions.push({
-      OR: doctorSearchableFields.map((field) => ({
-        [field]: {
-          contains: searchTerm,
-          mode: "insensitive",
-        },
-      })),
-    });
-  }
-
-   if (specialties && specialties.length > 0) {
+    if (searchTerm) {
         andConditions.push({
-            doctorSpecialties : {
+            OR: doctorSearchableFields.map(field => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive',
+                },
+            })),
+        });
+    };
+
+    // doctor > doctorSpecialties > specialties -> title
+
+    if (specialties && specialties.length > 0) {
+        andConditions.push({
+            doctorSpecialties: {
                 some: {
-                    specialty: {
+                    specialities: {
                         title: {
                             contains: specialties,
                             mode: 'insensitive'
@@ -38,40 +43,59 @@ const getAllFromDB = async (params: IDoctorFilterRequest, options: IPaginationOp
     };
 
 
-  if (Object.keys(filterData).length > 0) {
+    if (Object.keys(filterData).length > 0) {
+        const filterConditions = Object.keys(filterData).map(key => ({
+            [key]: {
+                equals: (filterData as any)[key],
+            },
+        }));
+        andConditions.push(...filterConditions);
+    }
+
     andConditions.push({
-      AND: Object.keys(filterData).map((key) => ({
-        [key]: {
-          equals: (filterData as Record<string, string>)[key],
-        },
-      })),
+        isDeleted: false,
     });
-  }
 
-  andConditions.push({
-    isDeleted: false,
-  });
+    const whereConditions: Prisma.DoctorWhereInput =
+        andConditions.length > 0 ? { AND: andConditions } : {};
 
-  const whereConditions: Prisma.DoctorWhereInput = { AND: andConditions as Prisma.DoctorWhereInput[] };
-  const result = await prisma.doctor.findMany({
-    where: whereConditions,
-    ...paginationOptions,
-  });
-  const total = await prisma.doctor.count({
-    where: whereConditions,
-  });
-  return {
-    meta: {
-      page: Number(paginationOptions.skip + 1),
-      limit: Number(paginationOptions.take),
-      total,
-    },
-    data: result,
-  };
+    const result = await prisma.doctor.findMany({
+        where: whereConditions,
+        skip,
+        take: limit,
+        orderBy: options.sortBy && options.sortOrder
+            ? { [options.sortBy]: options.sortOrder }
+            : { averageRating: 'desc' },
+        include: {
+            doctorSpecialties: {
+                include: {
+                    specialities: true
+                }
+            },
+            review: {
+                select: {
+                    rating: true
+                }
+            }
+        },
+    });
+
+    const total = await prisma.doctor.count({
+        where: whereConditions,
+    });
+
+    return {
+        meta: {
+            total,
+            page,
+            limit,
+        },
+        data: result,
+    };
 };
 
 const getByIdFromDB = async (id: string): Promise<Doctor | null> => {
-    const result = await prisma.doctor.findUniqueOrThrow({
+    const result = await prisma.doctor.findUnique({
         where: {
             id,
             isDeleted: false,
@@ -79,9 +103,10 @@ const getByIdFromDB = async (id: string): Promise<Doctor | null> => {
         include: {
             doctorSpecialties: {
                 include: {
-                    specialty: true
+                    specialities: true
                 }
-            }
+            },
+            review: true
         }
     });
     return result;
@@ -109,10 +134,10 @@ const updateIntoDB = async (id: string, payload: IDoctorUpdate) => {
             const deleteSpecialtiesIds = specialties.filter(specialty => specialty.isDeleted);
             //console.log(deleteSpecialtiesIds)
             for (const specialty of deleteSpecialtiesIds) {
-                await transactionClient.doctorSpecialty.deleteMany({
+                await transactionClient.doctorSpecialties.deleteMany({
                     where: {
                         doctorId: doctorInfo.id,
-                        specialtyId: specialty.specialtiesId
+                        specialitiesId: specialty.specialtiesId
                     }
                 });
             }
@@ -121,10 +146,10 @@ const updateIntoDB = async (id: string, payload: IDoctorUpdate) => {
             const createSpecialtiesIds = specialties.filter(specialty => !specialty.isDeleted);
             console.log(createSpecialtiesIds)
             for (const specialty of createSpecialtiesIds) {
-                await transactionClient.doctorSpecialty.create({
+                await transactionClient.doctorSpecialties.create({
                     data: {
                         doctorId: doctorInfo.id,
-                        specialtyId: specialty.specialtiesId
+                        specialitiesId: specialty.specialtiesId
                     }
                 });
             }
@@ -138,7 +163,7 @@ const updateIntoDB = async (id: string, payload: IDoctorUpdate) => {
         include: {
             doctorSpecialties: {
                 include: {
-                    specialty: true
+                    specialities: true
                 }
             }
         }

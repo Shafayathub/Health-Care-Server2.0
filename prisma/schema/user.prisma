@@ -3,90 +3,77 @@ model User {
   email              String     @unique
   password           String
   role               UserRole
-  status             UserStatus @default(ACTIVE)
   needPasswordChange Boolean    @default(true)
+  status             UserStatus @default(ACTIVE)
   createdAt          DateTime   @default(now())
   updatedAt          DateTime   @updatedAt
+  admin              Admin?
+  doctor             Doctor?
+  patient            Patient?
 
-  admin   Admin?
-  doctor  Doctor?
-  patient Patient?
   @@map("users")
 }
 
 model Admin {
   id            String   @id @default(uuid())
   name          String
+  email         String   @unique
   profilePhoto  String?
-  contactNumber String?
+  contactNumber String
   isDeleted     Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  // Relation based on email
-  email String @unique
-  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+  user User @relation(fields: [email], references: [email])
+
   @@map("admins")
 }
 
 model Doctor {
-  id                  String   @id @default(uuid())
+  id                  String              @id @default(uuid())
   name                String
+  email               String              @unique
   profilePhoto        String?
-  contactNumber       String?
+  contactNumber       String
   address             String?
-  registrationNumber  String   @unique
-  appointmentFee      Float
+  registrationNumber  String
+  experience          Int                 @default(0)
+  gender              Gender
+  appointmentFee      Int
   qualification       String
-  currentWorkingPlace String?
-  designation         String?
-  isDeleted           Boolean  @default(false)
-  averageRating       Float    @default(0)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  currentWorkingPlace String
+  designation         String
+  isDeleted           Boolean             @default(false)
+  averageRating       Float               @default(0.0)
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  user                User                @relation(fields: [email], references: [email])
+  doctorSpecialties   DoctorSpecialties[]
+  doctorSchedules     DoctorSchedules[]
+  appointment         Appointment[]
+  prescription        Prescription[]
+  review              Review[]
 
-  // Relation based on email
-  email       String           @unique
-  user        User             @relation(fields: [email], references: [email], onDelete: Cascade)
-
-  doctorSpecialties   DoctorSpecialty[]
-  doctorSchedules     DoctorSchedule[]
-  slots         AppointmentSlot[]
-  reviews       Review[]
-  prescriptions Prescription[]
-  appointments  Appointment[]
   @@map("doctors")
 }
 
 model Patient {
-  id                         String        @id @default(uuid())
-  name                       String
-  occupation                 String?
-  dateOfBirth                DateTime?
-  gender                     Gender?
-  maritalStatus              MaritalStatus?
-  bloodGroup                 BloodGroup?
-  hasAllergies               Boolean?
-  hasDiabetes                Boolean?
-  height                     String?
-  weight                     String?
-  dietaryPreferences         String?
-  pregnancyStatus            String?
-  immunizationStatus         String?
-  hasPastSurgeries           Boolean?
-  recentInjury               Boolean?
-  rawHistoryText             String?
-  structuredMedicalHistory   Json?
+  id            String   @id @unique @default(uuid())
+  email         String   @unique
+  name          String
+  profilePhoto  String?
+  contactNumber String?
+  address       String?
   isDeleted     Boolean  @default(false)
-  createdAt                  DateTime      @default(now())
-  updatedAt                  DateTime      @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  // Relation based on email
-  email          String          @unique
-  user           User            @relation(fields: [email], references: [email], onDelete: Cascade)
+  user              User               @relation(references: [email], fields: [email])
+  patientHealthData PatientHealthData?
+  medicalReport     MedicalReport[]
+  appointment       Appointment[]
+  prescription      Prescription[]
+  review            Review[]
 
-  appointments   Appointment[]
-  reviews        Review[]
-  medicalReports MedicalReport[]
   @@map("patients")
 }

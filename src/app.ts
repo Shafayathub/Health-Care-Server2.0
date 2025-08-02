@@ -1,42 +1,50 @@
-
-import express, { Application, Request, Response } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
-import mainRouter from './app/routes';
-import globalErrorHandler from './app/middlewares/GlobalErrorHandler';
-import notFound from './app/middlewares/NotFound';
+import router from './app/routes';
+import httpStatus from 'http-status';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import cookieParser from 'cookie-parser';
+import { AppointmentService } from './app/modules/Appointment/appointment.service';
+import cron from 'node-cron'
 
 const app: Application = express();
-
-// --- Middleware ---
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// --- API Routes ---
+//parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Root welcome route
+
+
+cron.schedule('* * * * *', () => {
+    try {
+        AppointmentService.cancelUnpaidAppointments();
+    }
+    catch (err) {
+        console.error(err);
+    }
+});
+
 app.get('/', (req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    message: 'Welcome to the PH HealthCare API!',
-  });
+    res.send({
+        Message: "Ph health care server.."
+    })
 });
 
-// Health check route with new versioning
-app.get('/api/v1/health', (req: Request, res: Response) => {
-  res.status(200).json({ status: 'UP', message: 'Server is healthy' });
-});
+app.use('/api/v1', router);
 
-// Use the main router for all versioned API paths
-app.use('/api/v1', mainRouter);
-
-// error handling throgh NextFunction
 app.use(globalErrorHandler);
 
-// not found route
-app.use(notFound);
-
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.status(httpStatus.NOT_FOUND).json({
+        success: false,
+        message: "API NOT FOUND!",
+        error: {
+            path: req.originalUrl,
+            message: "Your requested path is not found!"
+        }
+    })
+})
 
 export default app;
