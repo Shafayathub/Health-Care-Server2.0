@@ -8,9 +8,9 @@ import prisma from "../../utility/prisma";
 
 
 const getAllFromDB = async (params: IDoctorFilterRequest, options: IPaginationOptions) => {
-  const { searchTerm, ...filterData } = params;
+  const { searchTerm, specialties, ...filterData } = params;
   const paginationOptions = paginationHelper.calculatePagination(options);
-  const andConditions: Prisma.AdminWhereInput[] = [];
+  const andConditions: Prisma.DoctorWhereInput[] = [];
   if (searchTerm) {
     andConditions.push({
       OR: doctorSearchableFields.map((field) => ({
@@ -21,6 +21,23 @@ const getAllFromDB = async (params: IDoctorFilterRequest, options: IPaginationOp
       })),
     });
   }
+
+   if (specialties && specialties.length > 0) {
+        andConditions.push({
+            doctorSpecialties : {
+                some: {
+                    specialty: {
+                        title: {
+                            contains: specialties,
+                            mode: 'insensitive'
+                        }
+                    }
+                }
+            }
+        })
+    };
+
+
   if (Object.keys(filterData).length > 0) {
     andConditions.push({
       AND: Object.keys(filterData).map((key) => ({
@@ -60,7 +77,7 @@ const getByIdFromDB = async (id: string): Promise<Doctor | null> => {
             isDeleted: false,
         },
         include: {
-            specialties: {
+            doctorSpecialties: {
                 include: {
                     specialty: true
                 }
@@ -119,7 +136,7 @@ const updateIntoDB = async (id: string, payload: IDoctorUpdate) => {
             id: doctorInfo.id
         },
         include: {
-            specialties: {
+            doctorSpecialties: {
                 include: {
                     specialty: true
                 }

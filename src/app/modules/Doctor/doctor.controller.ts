@@ -1,6 +1,6 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { Request, Response } from 'express';
 import StatusCode from 'http-status';
-import { DoctorService } from './doctor.service';
+import { DoctorService } from './doctor.service'; 
 import catchAsync from '../../utility/CatchAsync';
 import sendResponse from '../../utility/SendResponse';
 import pick from '../../utility/Pick';

@@ -49,8 +49,8 @@ model Doctor {
   email       String           @unique
   user        User             @relation(fields: [email], references: [email], onDelete: Cascade)
 
-  specialties   DoctorSpecialty[]
-  schedules     DoctorSchedule[]
+  doctorSpecialties   DoctorSpecialty[]
+  doctorSchedules     DoctorSchedule[]
   slots         AppointmentSlot[]
   reviews       Review[]
   prescriptions Prescription[]
