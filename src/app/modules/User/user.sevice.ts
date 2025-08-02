@@ -8,6 +8,7 @@ import { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../../helpars/paginationHelper";
 import { userSearchAbleFields } from "./user.constant";
 import { IAuthUser } from "../../interfaces/common";
+import config from "../../../config";
 
 const createAdmin = async (req: Request): Promise<Admin> => {
 
@@ -18,7 +19,7 @@ const createAdmin = async (req: Request): Promise<Admin> => {
         req.body.admin.profilePhoto = uploadToCloudinary?.secure_url
     }
 
-    const hashedPassword: string = await bcrypt.hash(req.body.password, 12)
+    const hashedPassword: string = await bcrypt.hash(req.body.password, Number(config.salt_round))
 
     const userData = {
         email: req.body.admin.email,
@@ -50,7 +51,7 @@ const createDoctor = async (req: Request): Promise<Doctor> => {
         req.body.doctor.profilePhoto = uploadToCloudinary?.secure_url
     }
 
-    const hashedPassword: string = await bcrypt.hash(req.body.password, 12)
+    const hashedPassword: string = await bcrypt.hash(req.body.password, Number(config.salt_round))
 
     const userData = {
         email: req.body.doctor.email,
@@ -81,7 +82,7 @@ const createPatient = async (req: Request): Promise<Patient> => {
         req.body.patient.profilePhoto = uploadedProfileImage?.secure_url;
     }
 
-    const hashedPassword: string = await bcrypt.hash(req.body.password, 12)
+    const hashedPassword: string = await bcrypt.hash(req.body.password, Number(config.salt_round))
 
     const userData = {
         email: req.body.patient.email,
