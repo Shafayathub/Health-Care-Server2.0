@@ -1,12 +1,11 @@
 import { Request } from "express";
 import { fileUploader } from "../../../helpars/fileUploader";
 import prisma from "../../../shared/prisma";
-import { IFile } from "../../interfaces/file";
 import { Specialties } from "@prisma/client";
 
 const inserIntoDB = async (req: Request) => {
 
-    const file = req.file as IFile;
+    const file = req.file;
 
     if (file) {
         const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);

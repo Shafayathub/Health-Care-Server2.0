@@ -12,6 +12,7 @@ const loginUser = async (payload: {
     email: string,
     password: string
 }) => {
+    console.log(payload)
     const userData = await prisma.user.findUniqueOrThrow({
         where: {
             email: payload.email,

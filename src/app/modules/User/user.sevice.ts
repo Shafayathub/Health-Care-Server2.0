@@ -2,7 +2,6 @@ import { Admin, Doctor, Patient, Prisma, User, UserRole, UserStatus } from "@pri
 import * as bcrypt from 'bcryptjs'
 import prisma from "../../../shared/prisma";
 import { fileUploader } from "../../../helpars/fileUploader";
-import { IFile } from "../../interfaces/file";
 import { Request } from "express";
 import { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../../helpars/paginationHelper";
@@ -50,7 +49,6 @@ const createDoctor = async (req: Request): Promise<Doctor> => {
         const uploadToCloudinary = await fileUploader.uploadToCloudinary(file);
         req.body.doctor.profilePhoto = uploadToCloudinary?.secure_url
     }
-
     const hashedPassword: string = await bcrypt.hash(req.body.password, Number(config.salt_round))
 
     const userData = {
