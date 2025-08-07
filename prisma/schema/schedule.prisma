@@ -1,40 +1,27 @@
-model Specialty {
-  id          String   @id @default(uuid())
-  title        String   @unique
-  description String?
-  icon        String?
-
-  doctors DoctorSpecialty[]
-}
-
-model DoctorSpecialty {
-  doctorId    String
-  specialtyId String
-
-  doctor    Doctor    @relation(fields: [doctorId], references: [id])
-  specialty Specialty @relation(fields: [specialtyId], references: [id])
-
-  @@id([doctorId, specialtyId])
-}
-
 model Schedule {
-  id        String   @id @default(uuid())
-  name      String
-  startDate DateTime
-  endDate   DateTime
-  isDeleted Boolean  @default(false)
+  id              String            @id @default(uuid())
+  startDateTime   DateTime
+  endDateTime     DateTime
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  doctorSchedules DoctorSchedules[]
+  appointment     Appointment?
 
-  doctors DoctorSchedule[]
   @@map("schedules")
 }
 
-model DoctorSchedule {
-  doctorId   String
-  scheduleId String
-  
-  doctor   Doctor   @relation(fields: [doctorId], references: [id])
-  schedule Schedule @relation(fields: [scheduleId], references: [id])
+model DoctorSchedules {
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
 
-  @@id([doctorId, scheduleId]) 
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+
+  isBooked Boolean @default(false)
+
+  appointmentId String?      @unique
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+
+  @@id([doctorId, scheduleId])
   @@map("doctor_schedules")
 }
