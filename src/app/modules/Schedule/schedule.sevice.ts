@@ -3,7 +3,7 @@ import prisma from '../../../shared/prisma';
 import { Prisma, Schedule } from '@prisma/client';
 import { IFilterRequest, ISchedule } from './schedule.interface';
 import { IPaginationOptions } from '../../interfaces/pagination';
-import { paginationHelper } from '../../../helpars/paginationHelper';
+import { paginationHelper } from '../../../helpers/paginationHelper';
 import { IAuthUser } from '../../interfaces/common';
 
 const convertDateTime = async (date: Date) => {

@@ -2,7 +2,7 @@ import prisma from "../../../shared/prisma"
 import { IAuthUser } from "../../interfaces/common"
 import { v4 as uuidv4 } from 'uuid';
 import { IPaginationOptions } from "../../interfaces/pagination";
-import { paginationHelper } from "../../../helpars/paginationHelper";
+import { paginationHelper } from "../../../helpers/paginationHelper";
 import { AppointmentStatus, PaymentStatus, Prisma, UserRole } from "@prisma/client";
 import ApiError from "../../errors/ApiError";
 import httpStatus from "http-status";

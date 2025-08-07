@@ -2,10 +2,10 @@ import { Doctor, Prisma, UserStatus } from "@prisma/client";
 import prisma from "../../../shared/prisma";
 import { IDoctorFilterRequest, IDoctorUpdate } from "./doctor.interface";
 import { IPaginationOptions } from "../../interfaces/pagination";
-import { paginationHelper } from "../../../helpars/paginationHelper";
+import { paginationHelper } from "../../../helpers/paginationHelper";
 import { doctorSearchableFields } from "./doctor.constants";
 import axios from "axios";
-import { askOpenRouter } from "../../../helpars/openRouterClient";
+import { askOpenRouter } from "../../../helpers/openRouterClient";
 
 const getAllFromDB = async (
   filters: IDoctorFilterRequest,
@@ -231,7 +231,7 @@ const getAISuggestion = async (input: PatientInput) => {
       review: { select: { rating: true } },
     },
   });
-
+  
   const systemMessage = {
     role: "system",
     content:

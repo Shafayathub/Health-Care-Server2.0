@@ -4,7 +4,7 @@ import { IAuthUser } from "../../interfaces/common"
 import ApiError from "../../errors/ApiError";
 import httpStatus from "http-status";
 import { IPaginationOptions } from "../../interfaces/pagination";
-import { paginationHelper } from "../../../helpars/paginationHelper";
+import { paginationHelper } from "../../../helpers/paginationHelper";
 
 const insertIntoDB = async (user: IAuthUser, payload: Partial<Prescription>) => {
     const appointmentData = await prisma.appointment.findUniqueOrThrow({
