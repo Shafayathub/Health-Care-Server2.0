@@ -3,7 +3,7 @@ import prisma from "../../../shared/prisma"
 import ApiError from "../../errors/ApiError";
 import { IAuthUser } from "../../interfaces/common"
 import { IPaginationOptions } from "../../interfaces/pagination";
-import { paginationHelper } from "../../../helpars/paginationHelper";
+import { paginationHelper } from "../../../helpers/paginationHelper";
 import { Prisma } from "@prisma/client";
 
 const insertIntoDB = async (user: IAuthUser, payload: any) => {

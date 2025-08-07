@@ -1,5 +1,5 @@
 import { UserStatus } from "@prisma/client";
-import { jwtHelpers } from "../../../helpars/jwtHelpers";
+import { jwtHelpers } from "../../../helpers/jwtHelpers";
 import prisma from "../../../shared/prisma";
 import * as bcrypt from 'bcryptjs'
 import config from "../../../config";
