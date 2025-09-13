@@ -6,25 +6,24 @@ import httpStatus from "http-status";
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
     const result = await AuthServices.loginUser(req.body);
-
     const { refreshToken, accessToken } = result;
-
+console.log(result)
     res.cookie('accessToken', accessToken, {
         secure: false,
-        httpOnly: true
+        httpOnly: true,
+        sameSite:"none"
     })
     res.cookie('refreshToken', refreshToken, {
         secure: false,
-        httpOnly: true
+        httpOnly: true,
+        sameSite:'none'
     });
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
         message: "Logged in successfully!",
-        data: {
-            needPasswordChange: result.needPasswordChange
-        }
+        data: null
     })
 });
 

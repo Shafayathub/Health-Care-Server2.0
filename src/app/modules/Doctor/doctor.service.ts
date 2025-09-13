@@ -231,7 +231,7 @@ const getAISuggestion = async (input: PatientInput) => {
       review: { select: { rating: true } },
     },
   });
-  
+
   const systemMessage = {
     role: "system",
     content:
