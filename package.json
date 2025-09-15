@@ -12,7 +12,8 @@
     "db:migrate": "prisma migrate",
     "db:push": "prisma db push",
     "db:pull": "prisma db pull",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
