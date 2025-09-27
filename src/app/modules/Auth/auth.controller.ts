@@ -7,7 +7,6 @@ import httpStatus from "http-status";
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthServices.loginUser(req.body);
   const { refreshToken, accessToken } = result;
-  console.log(result);
   res.cookie("accessToken", accessToken, {
     secure: true,
     httpOnly: true,
@@ -33,20 +32,20 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
   const { refreshToken } = req.cookies;
 
   const result = await AuthServices.refreshToken(refreshToken);
-  res.cookie("accessToken", result.accessToken, {
-    secure: false,
+ res.cookie("accessToken", result.accessToken, {
+    secure: true,
     httpOnly: true,
+    sameSite: "none",
+    maxAge: 1000 * 60 * 60,
   });
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Access token genereated successfully!",
-    data: result,
-    // data: {
-    //     accessToken: result.accessToken,
-    //     needPasswordChange: result.needPasswordChange
-    // }
+    data: {
+      message: "Access token genereated successfully!",
+    },
   });
 });
 
@@ -89,10 +88,26 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMe = catchAsync(async (req: Request & { user?: any }, res: Response) => {
+  const user = req.cookies;
+
+  const result = await AuthServices.getMe(user);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
+
+
+
 export const AuthController = {
   loginUser,
   refreshToken,
   changePassword,
   forgotPassword,
   resetPassword,
+  getMe
 };

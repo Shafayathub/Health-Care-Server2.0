@@ -9,7 +9,6 @@ import cron from 'node-cron'
 
 const app: Application = express();
 app.use(cookieParser());
-app.set('trust proxy', 1);
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
