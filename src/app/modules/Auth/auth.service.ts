@@ -175,7 +175,6 @@ const resetPassword = async (token: string, payload: { id: string, password: str
 const getMe = async (user: any) => {
     const accessToken = user.accessToken;
     const decodedData = jwtHelpers.verifyToken(accessToken, config.jwt.jwt_secret as Secret);
-    console.log(decodedData)
     
     const userData = await prisma.user.findUniqueOrThrow({
         where: {
