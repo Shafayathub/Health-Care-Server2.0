@@ -17,7 +17,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{ADMIN_TOKEN}}",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc1NDIxOTAwMSwiZXhwIjoxNzU0ODIzODAxfQ.74joePxA5igf6Z_E_o0Ol27kiMEPfEviJ1xZ298UQX0",
 								"type": "text"
 							}
 						],
@@ -27,11 +27,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": []
+									"src": "/D:/Photos/Next_Level/Level_2_Logo-01.webp"
 								},
 								{
 									"key": "data",
-									"value": "{\n    \"password\": \"123456\",\n    \"doctor\": {\n        \"email\": \"doctor23@gmail.com\",\n        \"name\": \"Dr. Fahim\",\n        \"contactNumber\": \"+1234567890\",\n        \"address\": \"123 Medical Street, Cityville\",\n        \"registrationNumber\": \"12345\",\n        \"experience\": 5,\n        \"gender\": \"MALE\",\n        \"apointmentFee\": 100,\n        \"qualification\": \"MD, PhD\",\n        \"currentWorkingPlace\": \"City Hospital\",\n        \"designation\": \"Senior Consultant\"\n    }\n}",
+									"value": "{\n    \"password\": \"123456\",\n    \"doctor\": {\n        \"email\": \"doctor5@gmail.com\",\n        \"name\": \"Dr. Shafia\",\n        \"contactNumber\": \"+1234567890\",\n        \"address\": \"123 Medical Street, Cityville\",\n        \"registrationNumber\": \"12345\",\n        \"experience\": 5,\n        \"gender\": \"MALE\",\n        \"appointmentFee\": 100,\n        \"qualification\": \"MD, PhD\",\n        \"currentWorkingPlace\": \"City Hospital\",\n        \"designation\": \"Senior Consultant\"\n    }\n}",
 									"type": "text"
 								}
 							]
@@ -305,7 +305,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"patient@gmail.com\",\n    \"password\": \"123456\"\n}\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
+							"raw": "{\n    \"email\": \"super@admin.com\",\n    \"password\": \"superadmin\"\n}\n\n\n// {\n//     \"email\": \"doctor23@gmail.com\",\n//     \"password\": \"123456\"\n// }\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -487,6 +487,48 @@
 					"response": []
 				},
 				{
+					"name": "AI Driven Suggestion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"symptoms\": \"chest pain, shortness of breath, and irregular heartbeat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/doctor/suggestion",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"doctor",
+								"suggestion"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "user@example.com",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "senior",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Doctor by ID",
 					"request": {
 						"method": "GET",
@@ -511,13 +553,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODQ0MTQxZC1kOWRiLTRiOTUtYjkwOS1hYzQzNjUwZDgwOTUiLCJyb2xlIjoiQURNSU4iLCJlbWFpbCI6ImprckBwaC5jb20iLCJpYXQiOjE3MTMzNTYxODIsImV4cCI6MTcxMzM1NjQ4Mn0.kYWxAbGADQxQyUU1Qg5tHQxRdB5_eroNC-qeFbJpCIM",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN1cGVyQGFkbWluLmNvbSIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImlhdCI6MTc1NDIxOTAwMSwiZXhwIjoxNzU0ODIzODAxfQ.74joePxA5igf6Z_E_o0Ol27kiMEPfEviJ1xZ298UQX0",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // \"name\": \"Dr. Cameron Williamson\",\n    // // \"profilePhoto\": \"doctor_profile1.jpg\",\n    // \"contactNumber\": \"+1234567899\",\n    // \"address\": \"123/A Medical Street, Cityville\",\n    // \"registrationNumber\": \"1234560\",\n    // \"experience\": 6,\n    // \"gender\": \"MALE\",\n    // \"apointmentFee\": 200,\n    // \"qualification\": \"MBBS (BCS)\",\n    // \"currentWorkingPlace\": \"City Medical College Hospital\",\n    // \"designation\": \"Senior Consultant |\"\n    \"specialties\": [\n        {\n            \"specialtiesId\": \"83b95068-b9f2-476b-8f4e-ff808fa75900\",\n            \"isDeleted\": false\n        }\n    ]\n}",
+							"raw": "{\n    // \"name\": \"Dr. Cameron Williamson\",\n    // // \"profilePhoto\": \"doctor_profile1.jpg\",\n    // \"contactNumber\": \"+1234567899\",\n    // \"address\": \"123/A Medical Street, Cityville\",\n    // \"registrationNumber\": \"1234560\",\n    // \"experience\": 6,\n    // \"gender\": \"MALE\",\n    // \"apointmentFee\": 200,\n    // \"qualification\": \"MBBS (BCS)\",\n    // \"currentWorkingPlace\": \"City Medical College Hospital\",\n    // \"designation\": \"Senior Consultant |\"\n    \"specialties\": [\n        {\n            \"specialtiesId\": \"b7c2447c-4eb7-45c5-b7b9-d4e80a797540\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -525,13 +567,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{BASE_URL}}/doctor/bfecddcd-6671-4a51-9ea3-496bc500a4df",
+							"raw": "{{BASE_URL}}/doctor/990cd5cf-28bd-4018-a119-50b70befede6",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"doctor",
-								"bfecddcd-6671-4a51-9ea3-496bc500a4df"
+								"990cd5cf-28bd-4018-a119-50b70befede6"
 							]
 						}
 					},
@@ -841,11 +883,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/fahimahammedfiroz/Downloads/Cardiology.jpeg"
+									"src": "/D:/Photos/Next_Level/Level_2_Logo-01-jpg.jpg"
 								},
 								{
 									"key": "data",
-									"value": "{\n    \"title\": \"Cardiology 1\"\n}",
+									"value": "{\n  \"title\": \"Medicine\"\n}\n",
 									"type": "text"
 								}
 							]
