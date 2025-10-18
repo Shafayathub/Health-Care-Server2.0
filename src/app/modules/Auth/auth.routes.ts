@@ -36,4 +36,9 @@ router.post(
     AuthController.resetPassword
 )
 
+router.get(
+    '/me',
+    AuthController.getMe
+)
+
 export const AuthRoutes = router;
