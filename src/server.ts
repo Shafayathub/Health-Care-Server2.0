@@ -1,7 +1,8 @@
 import { Server } from 'http';
 import app from './app';
-import config from './app/config';
-import { dbSeeder } from './app/utility/dbSeeder';
+import seedSuperAdmin from './helpers/seed';
+import config from './config';
+
 
 async function bootstrap() {
     // This variable will hold our server instance
@@ -9,7 +10,7 @@ async function bootstrap() {
 
     try {
         // Seed super admin
-        await dbSeeder.seedSuperAdmin();
+        await seedSuperAdmin();
 
         // Start the server
         server = app.listen(config.port, () => {
